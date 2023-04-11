@@ -1,0 +1,25 @@
+# Create empty lists for even and odd numbers
+Even = []
+Odd = []
+
+# Get the total number of integers to be input
+N = int(input("Please Enter the how many numbers: "))
+
+# Get the list of integers as input from the user
+NumList=input("Please Enter the number separating by space: ").split()
+
+# Loop through each integer in the list
+for j in range(N):
+    # Check if the integer is even
+    if(int(NumList[j]) % 2 == 0):
+        # If even, add it to the Even list
+        Even.append(NumList[j])
+    else:
+        # If odd, add it to the Odd list
+        Odd.append(NumList[j])
+
+# Create a dictionary to store the lists of even and odd numbers
+dictionary={"Odd":Odd,"Even":Even}
+
+# Print the dictionary containing the lists of even and odd numbers
+print(dictionary)
