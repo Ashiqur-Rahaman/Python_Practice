@@ -1,0 +1,31 @@
+#Establishing HTTPS connection using python modules: Socket and ssl
+import socket
+import ssl
+
+# User input the target URL and port number for HTTPS connection
+target = input("Enter the URL (e.g. www.gmail.com): ")
+port = 443
+
+# Create an SSL context using the TLSv1.2 protocol
+ssl_context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLSv1_2)
+
+# Create a socket object for the client
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Wrap the client socket in an SSL socket using the SSL context
+ssl_socket = ssl_context.wrap_socket(client_socket, server_hostname=target)
+
+# Connect to the target server using the SSL socket
+ssl_socket.connect((target, port))
+
+# Send a GET request to the server
+ssl_socket.send(b"GET / HTTP/1.1\r\nHost: google.com\r\n\r\n")
+
+# Receive a response from the server
+response = ssl_socket.recv(4096)
+
+# Print the response from the server
+print(response)
+
+# Close the SSL socket connection
+ssl_socket.close()
