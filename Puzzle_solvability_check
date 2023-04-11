@@ -1,0 +1,58 @@
+import sys
+
+# Three example puzzles
+puz=[6,1,10,2,7,11,4,14,5,1000,9,15,8,12,13,3]
+puz1=[7,1,2,5,1000,4,8,3,6]
+puz2=[13,10,11,6,5,7,4,8,1,12,14,9,3,15,2,1000]
+
+# Print the puzzle
+print(puz)
+
+# Calculate the number of inversions in the puzzle
+lent=len(puz2)
+total=0
+def inv(a,t):
+    for i in range(lent-1):
+        for j in range(lent-1):
+            # Skip i if it is larger than lent, and skip j+1 if it is larger than lent
+            if (j<i) or a[i]>lent:
+                continue
+            if(a[i]>a[j+1]):
+                # Increment t for every inversion
+                t=t+1
+    return t
+l=inv(puz2,total)
+
+# Print the number of inversions
+print(l)
+
+# Check if the puzzle is solvable
+if((lent%2)==1 and (l%2)==0):
+    print("This puzzle is solvable")
+    sys.exit()
+
+# Find the position of the blank tile
+for i in range(lent):
+    if(puz2[i]==1000):
+        t=i
+        break
+
+# Define the rows of the puzzle based on whether the number of rows is even or odd
+if((lent%2)==0):
+    row=[[0,3],[4,7],[8,11],[12,15]]
+else:
+    row=[[0,2],[3,5],[6,8]]
+
+# Determine which row the blank tile is in
+for i in range(len(row)):
+    if(row[i][0]<=t and row[i][1]>=t):
+       x=i
+       break
+    
+# Check if the puzzle is solvable based on the location of the blank tile and the number of inversions
+if(((lent%2)==0) and ((x%2)==1) and ((l%2)==0)):
+    print("This puzzle is solvable")
+elif(((lent%2)==0) and ((x%2)==0) and ((l%2)==1)):
+     print("This puzzle is solvable")
+else:
+    print("This puzzle is not solvable")
